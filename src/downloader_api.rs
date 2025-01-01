@@ -60,7 +60,7 @@ async fn download_segment(url: &String, segment_id: i32, directory: &String) -> 
 fn merge_segments(directory: &String, list_filename: &String, output_filename: String) {
     let output = Command::new("powershell.exe")
         .arg("ffmpeg")
-        .arg(format!("-f concat -safe 0 - {list_filename} -c copy {directory}/{output_filename}.mp4"))
+        .arg(format!("-f concat -safe 0 -i {list_filename} -c copy {directory}/{output_filename}.mp4"))
         .output()
         .unwrap();
 
@@ -123,12 +123,10 @@ async fn get_video_segment_count(url: &String) -> i32 {
 }
 
 pub async fn download_video(url: &String, directory: &String) -> Option<()> {
-
     match remove_dir_all(&directory) {
         Ok(()) => (),
         Err(error) => {
-            println!("Failed to clear segment directory: {error}");
-            return None
+            println!("Failed to clear segment directory({directory}): {error}");
         }
     };
 

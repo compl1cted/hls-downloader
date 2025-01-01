@@ -9,3 +9,5 @@ reqwest = { version = "0.11", features = ["json", "stream"] }
 futures-util = "0.3"
 #ffmpeg = "0.3.0"
 eframe = "0.26.2"
+egui-file-dialog = "0.4.0"
+egui-modal = "0.3.4"
